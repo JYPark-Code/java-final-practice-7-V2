@@ -42,12 +42,12 @@ public class AttendanceController {
             try {
                 MainFunction function = MainFunction.from(inputView.readFunction());
                 if(function.isQuit()){
-                    Console.close();
                     break;
                 }
                 executeFunction(function, now);
             } catch (IllegalArgumentException e) {
                 outputView.printError(e);
+                throw e;
             }
         }
     }
@@ -180,6 +180,14 @@ public class AttendanceController {
         validateWeekend(targetDate);
         if(targetDate.isAfter(today)){
             throw new IllegalArgumentException("[ERROR] 아직 수정할 수 없습니다.");
+        }
+    }
+
+    private void validateTime(String timeInput){
+        try {
+            LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
         }
     }
 

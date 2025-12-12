@@ -16,7 +16,7 @@ class ApplicationTest extends NsTest {
                 () -> assertThatThrownBy(() -> run("1", "짱수", "33:71"))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessageContaining("[ERROR] 잘못된 형식을 입력하였습니다."),
-                LocalDate.of(2024, 12, 13).atStartOfDay()
+                LocalDate.of(2024, 12, 13).atTime(10, 0)
         );
     }
 
@@ -26,7 +26,7 @@ class ApplicationTest extends NsTest {
                 () -> assertThatThrownBy(() -> run("1", "빈봉"))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessageContaining("[ERROR] 등록되지 않은 닉네임입니다."),
-                LocalDate.of(2024, 12, 13).atStartOfDay()
+                LocalDate.of(2024, 12, 13).atTime(10, 0)
         );
     }
 
@@ -36,7 +36,7 @@ class ApplicationTest extends NsTest {
                 () -> assertThatThrownBy(() -> run("1"))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessageContaining("[ERROR] 12월 14일 토요일은 등교일이 아닙니다."),
-                LocalDate.of(2024, 12, 14).atStartOfDay()
+                LocalDate.of(2024, 12, 14).atTime(10, 0)
         );
     }
 
@@ -47,7 +47,7 @@ class ApplicationTest extends NsTest {
                     runException("1", "짱수", "08:00");
                     assertThat(output()).contains("12월 13일 금요일 08:00 (출석)");
                 },
-                LocalDate.of(2024, 12, 13).atStartOfDay()
+                LocalDate.of(2024, 12, 13).atTime(10, 0)
         );
     }
 
@@ -73,7 +73,7 @@ class ApplicationTest extends NsTest {
                             "경고 대상자"
                     );
                 },
-                LocalDate.of(2024, 12, 13).atStartOfDay()
+                LocalDate.of(2024, 12, 13).atTime(10, 0)
         );
     }
 
