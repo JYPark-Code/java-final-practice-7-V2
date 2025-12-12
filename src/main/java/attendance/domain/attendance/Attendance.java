@@ -25,9 +25,15 @@ public class Attendance {
     }
 
     public AttendanceStatus getStatus(){
+
+        if (time == null) {
+            return AttendanceStatus.ABSENT;
+        }
+
         LocalTime startTime = CampusTime.getStartTime(date.getDayOfWeek());
         // 등교 시간보다 일찍 온 경우(음수) 0으로 처리하지 않으면 지각/결석 로직에 영향 없으므로 그대로 계산
         // 단, 로직상 '초과'분을 따지므로, 늦게 온 경우만 양수가 됨.
+
         long minutesDifference = ChronoUnit.MINUTES.between(startTime, time);
 
         return AttendanceStatus.of(minutesDifference);

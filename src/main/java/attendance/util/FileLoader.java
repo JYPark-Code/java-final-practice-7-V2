@@ -19,7 +19,7 @@ public class FileLoader {
     private static final int DATETIME_INDEX = 1;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static Crews load(String filePath) throws FileNotFoundException {
+    public static Crews load(String filePath) {
         Map<String, Crew> crewMap = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
