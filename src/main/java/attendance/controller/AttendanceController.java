@@ -183,14 +183,6 @@ public class AttendanceController {
         }
     }
 
-    private void validateTime(String timeInput){
-        try {
-            LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
-        } catch (Exception e) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
-        }
-    }
-
     private LocalTime parseTime(String timeInput){
         return LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
     }
