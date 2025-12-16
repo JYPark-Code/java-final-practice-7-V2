@@ -58,7 +58,7 @@ public class InputView {
 
     private void validateNotEmpty(String input) {
         if (input == null || input.isBlank()) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
+            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다. : " + input);
         }
     }
 
@@ -68,7 +68,7 @@ public class InputView {
             // HH:mm 형식으로 파싱되는지 확인 (예: 25:00, 09:60 등도 여기서 걸러짐)
             LocalTime.parse(input, DateTimeFormatter.ofPattern("HH:mm"));
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
+            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다. : " + input);
         }
     }
 
@@ -77,7 +77,7 @@ public class InputView {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
+            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다. : " + input);
         }
     }
 

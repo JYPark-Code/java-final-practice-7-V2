@@ -18,7 +18,7 @@ public enum MainFunction {
 
     public static MainFunction from(String command) {
         return Arrays.stream(values())
-                .filter(function -> function.command.equals(command))
+                .filter(function -> function.command.equalsIgnoreCase(command))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하셨습니다."));
     }

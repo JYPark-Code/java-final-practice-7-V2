@@ -7,13 +7,9 @@ import attendance.domain.menu.MainFunction;
 import attendance.util.FileLoader;
 import attendance.view.InputView;
 import attendance.view.OutputView;
-import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -98,7 +94,13 @@ public class AttendanceController {
         String timeInput = inputView.readTimeChangeTo();
 
         Crew crew = crews.findByNickname(nickname);
-        LocalDate targetDate = LocalDate.of(now.getYear(), now.getMonth(), day);
+        LocalDate targetDate;
+
+        try {
+            targetDate = LocalDate.of(now.getYear(), now.getMonth(), day);
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException(String.format("[ERROR] 올바르지 않은 날짜입니다 : %d", day));
+        }
 
         validateEditDate(targetDate, now.toLocalDate());
 
