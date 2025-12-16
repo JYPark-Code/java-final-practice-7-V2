@@ -108,6 +108,21 @@ public class Crew {
         return getConvertedAbsenceCount(today) >= 2;
     }
 
+    // controller 에서 분리
+
+    public static Comparator<Crew> createExpulsionComparator(LocalDate today){
+        return Comparator.comparing((Crew crew) -> crew.getRiskPriority(today), Comparator.reverseOrder()) // 1. 위험 단계 (높을수록 우선)
+                .thenComparing(crew -> crew.getConvertedAbsenceCount(today), Comparator.reverseOrder())     // 2. 결석 횟수 (내림차순)
+                .thenComparing(Crew::getNickname);
+    }
+
+    // 위험 단계별 우선순위 부여
+    private int getRiskPriority(LocalDate today) {
+        if (isExpulsionTarget(today)) return 3; // 제적 대상자 (가장 높음)
+        if (isInterviewTarget(today)) return 2; // 면담 대상자
+        if (isWarningTarget(today)) return 1;   // 경고 대상자
+        return 0;
+    }
 
 
 }
