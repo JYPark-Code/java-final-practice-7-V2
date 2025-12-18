@@ -4,7 +4,8 @@ import attendance.domain.attendance.Attendance;
 import attendance.domain.crew.Crew;
 import attendance.domain.crew.Crews;
 import attendance.domain.menu.MainFunction;
-import attendance.util.FileLoader;
+import attendance.repository.CrewRepository;
+import attendance.util.AttendanceValidator;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.DateTimes;
@@ -22,11 +23,16 @@ public class AttendanceController {
     private final Crews crews;
     private final AttendanceValidator validator;
 
-    public AttendanceController(){
-        this.inputView = new InputView();
-        this.outputView = new OutputView();
-        this.crews = FileLoader.load("src/main/resources/attendance.csv");
-        this.validator = new AttendanceValidator();
+    public AttendanceController(
+            InputView inputView,
+            OutputView outputView,
+            AttendanceValidator validator,
+            CrewRepository crewRepository
+    ){
+        this.inputView =  inputView;
+        this.outputView = outputView;
+        this.crews = crewRepository.load();
+        this.validator = validator;
     }
 
     public void run() {

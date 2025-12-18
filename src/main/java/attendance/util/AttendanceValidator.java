@@ -1,4 +1,4 @@
-package attendance.controller;
+package attendance.util;
 
 import attendance.domain.crew.Crew;
 
